@@ -166,15 +166,9 @@ async function handleSkip(msg) {
     return bot.sendMessage(chatId, 'Xatolik: Faqat qarama-qarshi jinsdagi odamlarni ko\'rish mumkin.');
   }
   
-  if (user && !user.liked.includes(targetId)) {
-    user.liked.push(targetId);
-    await user.save();
-  }
-  
-  await bot.sendMessage(chatId, '⏭ O\'tkazib yuborildi.');
-  
   // Показываем следующую анкету
-  setTimeout(() => browsePeople(msg), 1000);
+  // setTimeout(() => browsePeople(msg), 500);
+  browsePeople(msg);
 }
 
 // Функция показа лайков
@@ -272,7 +266,14 @@ bot.onText(/\/start/, async (msg) => {
   const telegramId = msg.from.id.toString();
   
   let user = await User.findOne({ telegramId });
-  
+  await bot.sendMessage(process.env.ADMIN_TELEGRAM_ID, 
+    `Yangi foydalanuvchi start bosdi\n\n` + 
+    `Ismi: ${msg.from.first_name}\n` +
+    `Familiya: ${msg.from.last_name}\n` +
+    `Username: @${msg.from.username}\n` +
+    `TelegramID: ${msg.chat.id}`
+  )
+
   if (user && user.registered) {
     const mainKeyboard = [
       [{ text: '👀 Qidiruv' }, { text: '❤️ Mening layklarim' }],
@@ -610,6 +611,7 @@ async function completeRegistration(session) {
         }
       }
     );
+    await bot.sendMessage(process.env.ADMIN_TELEGRAM_ID, `${session.data.name} anketani toliq toldirdi`)
     
     registrationSessions.delete(session.chatId);
   } catch (error) {
