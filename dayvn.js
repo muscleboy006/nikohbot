@@ -592,13 +592,13 @@ async function completeRegistration(session) {
     await newUser.save();
     
     await bot.sendMessage(session.chatId, 
-      `✅ Ro'yxatdan o'tish yakunlandi! 🔥\n\n` +
-      `📋 Sizning ma'lumotlaringiz:\n` +
-      `👤 Ism: ${session.data.name}\n` +
-      `🎂 Yosh: ${session.data.age}\n` +
-      `👫 Jins: ${session.data.gender}\n` +
-      `🏙 Shahar: ${session.data.city}\n` +
-      `💑 Oilaviy holat: ${session.data.maritalStatus}\n\n` +
+      `Ro'yxatdan o'tish yakunlandi! 🔥\n\n` +
+      `Sizning ma'lumotlaringiz:\n` +
+      `Ism: ${session.data.name}\n` +
+      `Yosh: ${session.data.age}\n` +
+      `Jins: ${session.data.gender}\n` +
+      `Shahar: ${session.data.city}\n` +
+      `Oilaviy holat: ${session.data.maritalStatus}\n\n` +
       `Qidiruv boshlash uchun "Qidiruv" tugmasini bosing!`,
       {
         reply_markup: { 
